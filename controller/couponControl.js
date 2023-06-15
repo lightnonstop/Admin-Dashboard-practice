@@ -13,7 +13,7 @@ const createCoupon = asyncHandler(async (req, res) => {
 
 const getCoupon = asyncHandler(async (req, res) => {
     const { id } = req.params;
-    validateMongodbId(id);
+    validateMongoDbId(id);
     try {
         const CouponDoc = await Coupon.findById(id);
         res.json(CouponDoc);
