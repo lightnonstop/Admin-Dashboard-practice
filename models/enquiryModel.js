@@ -23,6 +23,7 @@ var EnquirySchema = new mongoose.Schema({
             "Submitted",
             "Contacted",
             "In progress",
+            "Resolved",
         ]
     },
 });
