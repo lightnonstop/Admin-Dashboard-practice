@@ -46,9 +46,12 @@ const productSchema = new mongoose.Schema(
 			},
 		],
     },
-    color: {
-      type: Array,
-    },
+    color: [
+      { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Color", 
+      }
+    ],
     tag: {
       type: String,
     },
