@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, loginUser, getAllUsers, getUser, deleteUser, updateUser, unblockUser, blockUser, handleRefreshToken, logoutUser, updatePassword, forgotPasswordToken, resetPassword, loginAdmin, getWishlist, saveAddress, userCart, getUserCart, removeCart, applyCoupon, createOrder, getOrders, getAllOrders, updateOrderStatus, getOrderByUserId } = require('../controller/userControl');
+const { createUser, loginUser, getAllUsers, getUser, deleteUser, updateUser, unblockUser, blockUser, handleRefreshToken, logoutUser, updatePassword, forgotPasswordToken, resetPassword, loginAdmin, getWishlist, saveAddress, userCart, getUserCart, removeCart, applyCoupon, createOrder, getOrders, getAllOrders, updateOrderStatus, getOrderByUserId, removeItemFromCart, updateItemQtyFromCart } = require('../controller/userControl');
 const { isAdmin, authVerify } = require('../middlewares/authMiddleware');
 const router = express.Router();
 
@@ -24,11 +24,13 @@ router.post('/cart/cash-order', authVerify, createOrder);
 
 router.delete('/remove-cart', authVerify, removeCart);
 router.delete('/:id', deleteUser);
+router.delete('/cart/remove-cart-item/:id', authVerify, removeItemFromCart);
+router.put('/cart/update-cart-item-qty/:id/:itemQty', authVerify, updateItemQtyFromCart);
 
 router.put('/:edit-user', authVerify, updateUser);
 router.put('/save-address', authVerify, saveAddress);
 router.put('/reset-password/:token', resetPassword);
-router.put('/password', authVerify ,updatePassword);
+router.put('/password', authVerify, updatePassword);
 
 router.put('/block-user/:id', authVerify, isAdmin, blockUser);
 router.put('/unblock-user/:id', authVerify, isAdmin, unblockUser);

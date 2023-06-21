@@ -341,7 +341,30 @@ const getUserCart = asyncHandler(async (req, res) => {
         throw new Error(e)
     }
 })
-
+const removeItemFromCart = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { id } = req.params;
+    validateMongodbId(_id);
+    try {
+        const deletedItem = await Cart.findOneAndDelete({ user: _id, _id: id });
+        res.json(deletedItem);
+    } catch (e){
+        throw new Error(e)
+    }
+})
+const updateItemQtyFromCart = asyncHandler(async (req, res) => {
+    const { _id } = req.user;
+    const { id, itemQty } = req.params;
+    validateMongodbId(_id);
+    try {
+        const cartItem = await Cart.findOne({ user: _id, _id: id });
+        item.quantity = itemQty;
+        item.save();
+        res.json(cartItem);
+    } catch (e){
+        throw new Error(e)
+    }
+})
 const removeCart = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     validateMongodbId(_id);
@@ -476,29 +499,31 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    createUser,
-    loginUser,
-    getAllUsers,
-    getUser,
-    deleteUser,
-    updateUser,
-    blockUser,
-    unblockUser,
-    handleRefreshToken,
-    logoutUser,
-    updatePassword,
-    forgotPasswordToken,
-    resetPassword,
-    loginAdmin,
-    getWishlist,
-    saveAddress,
-    userCart,
-    getUserCart,
-    removeCart,
-    applyCoupon,
-    createOrder,
-    getOrders,
-    updateOrderStatus,
-	getAllOrders,
-    getOrderByUserId,
-}
+  createUser,
+  loginUser,
+  getAllUsers,
+  getUser,
+  deleteUser,
+  updateUser,
+  blockUser,
+  unblockUser,
+  handleRefreshToken,
+  logoutUser,
+  updatePassword,
+  forgotPasswordToken,
+  resetPassword,
+  loginAdmin,
+  getWishlist,
+  saveAddress,
+  userCart,
+  getUserCart,
+  removeCart,
+  applyCoupon,
+  createOrder,
+  getOrders,
+  updateOrderStatus,
+  getAllOrders,
+  getOrderByUserId,
+  removeItemFromCart,
+  updateItemQtyFromCart,
+};
