@@ -43,7 +43,7 @@ const removeProduct = asyncHandler(async (req, res) => {
 const getProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    const productDoc = await Product.findById(id);
+    const productDoc = await Product.findById(id).populate('color');
     res.json(productDoc);
   } catch (e) {
     throw new Error(e);
