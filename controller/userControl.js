@@ -311,13 +311,13 @@ const getWishlist = asyncHandler(async (req, res) => {
 })
 
 const userCart = asyncHandler(async (req, res) => {
-    const { productId, color, quantity, price } = req.body;
+    const { product, color, quantity, price } = req.body;
     const { _id } = req.user;
     validateMongodbId(_id);
     try {        
         let newCart = await new Cart({
-            userId: _id,
-            productId,
+            user: _id,
+            product,
             color,
             price,
             quantity,
@@ -332,7 +332,10 @@ const getUserCart = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     validateMongodbId(_id);
     try {
-        const cartDoc = await Cart.find({ userId: _id }).populate('color');
+        const cartDoc = await Cart.find({ user: _id })
+        .populate('color')
+        .populate('product')
+        .exec()
         res.json(cartDoc);
     } catch (e){
         throw new Error(e)
