@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 var cartSchema = new mongoose.Schema({
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    productId: {
+    product: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
     },
@@ -16,10 +16,10 @@ var cartSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    color: {
+    color: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Color',
-    },
+    }],
 }, { timestamps: true, });
 
 module.exports = mongoose.model('Cart', cartSchema);
