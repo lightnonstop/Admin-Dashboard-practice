@@ -25,7 +25,7 @@ router.post('/admin-login', loginAdmin);
 router.post('/cart', authVerify, userCart);
 router.post('/forgot-password-token', forgotPasswordToken);
 // router.post('/cart/apply-coupon', authVerify, applyCoupon);
-router.post('/checkout/create-order', authVerify, createOrder);
+router.post('/cart/create-order', authVerify, createOrder);
 
 // router.delete('/remove-cart', authVerify, removeCart);
 router.delete('/:id', deleteUser);
