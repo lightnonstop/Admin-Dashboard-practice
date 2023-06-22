@@ -354,12 +354,13 @@ const removeItemFromCart = asyncHandler(async (req, res) => {
 })
 const updateItemQtyFromCart = asyncHandler(async (req, res) => {
     const { _id } = req.user;
-    const { id, itemQty } = req.params;
+    const { itemQty } = req.body;
+    const { id } = req.params;
     validateMongodbId(_id);
     try {
-        const cartItem = await Cart.findOne({ user: _id, _id: id });
-        item.quantity = itemQty;
-        item.save();
+        const cartItem = await Cart.findOne({ user: _id, product: id });
+        cartItem.quantity = itemQty;
+        cartItem.save();
         res.json(cartItem);
     } catch (e){
         throw new Error(e)
