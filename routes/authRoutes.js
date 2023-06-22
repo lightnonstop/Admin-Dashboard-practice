@@ -25,7 +25,7 @@ router.post('/cart/cash-order', authVerify, createOrder);
 router.delete('/remove-cart', authVerify, removeCart);
 router.delete('/:id', deleteUser);
 router.delete('/cart/remove-cart-item/:id', authVerify, removeItemFromCart);
-router.put('/cart/update-cart-item-qty/:id/:itemQty', authVerify, updateItemQtyFromCart);
+router.put('/cart/update-cart-item-qty/:id/', authVerify, updateItemQtyFromCart);
 
 router.put('/:edit-user', authVerify, updateUser);
 router.put('/save-address', authVerify, saveAddress);
